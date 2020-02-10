@@ -16,7 +16,12 @@ namespace SpaceInvaders {
 		}
 	}
 
-	void Ship::Update(float deltaTime) {
+	sf::Sprite* Ship::getSprite()
+	{
+		return &shipSprite;
+	}
+
+	void Ship::update(float deltaTime) {
 		shipSprite.setPosition(screen->getSize().x / 2, screen->getSize().y - 20);
 		screen->draw(shipSprite);
 	}

@@ -6,14 +6,17 @@ namespace SpaceInvaders {
 	Game::Game(int width, int height, sf::String title) {
 		window.create(sf::VideoMode(width, height), title);
 		ship = new Ship(&window);
-		this->Run();
+		createEnemies();
+		rightMove = true;
+		moveDown = false;
+		this->run();
 	};
 
-	void Game::Run() {
+	void Game::run() {
 		while (window.isOpen())
 		{
 			sf::Time dt = _clock.restart();
-			float deltatime = dt.asSeconds();
+			float deltaTime = dt.asSeconds();
 			// check all the window's events that were triggered since the last iteration of the loop
 			sf::Event event;
 			while (window.pollEvent(event))
@@ -23,8 +26,41 @@ namespace SpaceInvaders {
 					window.close();
 			}
 			window.clear();
-			ship->Update(deltatime);
+			moveEnemies(deltaTime);
+			ship->update(deltaTime);
 			window.display();
 		}
+	}
+
+	void Game::createEnemies() {
+		for (unsigned short int i = 0; i < 8; i++)
+		{
+			for (unsigned short int k = 0; k < 3; k++)
+			{
+				Enemy* enemy = new Enemy(&window, 50 * (i + 1), 50 * (k + 1));
+				enemies.push_back(enemy);
+			}
+		}
+	}
+
+	void Game::moveEnemies(float deltaTime) {
+		for (unsigned short int i = 0; i < enemies.size(); i++)
+		{
+			enemies[i]->move(deltaTime, rightMove);
+			if (enemies[i]->endOfScreen() && !moveDown)
+			{
+				moveDown = true;
+				rightMove = !rightMove;
+			}
+
+		}
+		for (unsigned short int i = 0; i < enemies.size(); i++)
+		{
+			if (moveDown) {
+				enemies[i]->moveDown();
+			}
+			enemies[i]->update(deltaTime);
+		}
+		moveDown = false;
 	}
 }

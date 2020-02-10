@@ -6,7 +6,8 @@ namespace SpaceInvaders {
 	{
 	public:
 		Ship(sf::RenderWindow* w);
-		void Update(float deltaTime);
+		void update(float deltaTime);
+		sf::Sprite* getSprite();
 	private:
 		sf::RenderWindow* screen;
 		sf::Texture shipTexture;
