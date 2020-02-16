@@ -39,9 +39,17 @@ namespace SpaceInvaders {
 	}
 
 	bool Enemy::endOfScreen() {
-		if (sprite.getPosition().x <= 50 || sprite.getPosition().x >= screen->getSize().x - 50)
+		if ((sprite.getPosition().x <= 50 || sprite.getPosition().x >= screen->getSize().x - 50) && isAlive)
 			return true;
 
+		return false;
+	}
+
+	bool Enemy::reachPlayer() {
+		if (sprite.getPosition().y < screen->getSize().y - 20 && isAlive)
+		{
+			return true;
+		}
 		return false;
 	}
 }

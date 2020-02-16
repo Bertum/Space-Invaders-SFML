@@ -27,6 +27,7 @@ namespace SpaceInvaders {
 			}
 			window.clear();
 			moveEnemies(deltaTime);
+			checkFinishCondition();
 			ship->update(deltaTime);
 			window.display();
 		}
@@ -62,5 +63,15 @@ namespace SpaceInvaders {
 			enemies[i]->update(deltaTime);
 		}
 		moveDown = false;
+	}
+
+	void Game::checkFinishCondition() {
+		for (unsigned short int i = 0; i < enemies.size(); i++)
+		{
+			if (enemies[i]->reachPlayer())
+			{
+				//TODO Finish games
+			}
+		}
 	}
 }

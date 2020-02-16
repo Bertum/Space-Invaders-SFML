@@ -12,8 +12,6 @@ namespace SpaceInvaders {
 	public:
 		~Game() {};
 		Game(int width, int height, sf::String title);
-
-
 	private:
 		const float dt = 1.0f / 60.0f;
 		sf::Clock _clock;
@@ -23,6 +21,7 @@ namespace SpaceInvaders {
 		void run();
 		void createEnemies();
 		void moveEnemies(float deltaTime);
+		void checkFinishCondition();
 		bool rightMove;
 		bool moveDown;
 	};

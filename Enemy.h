@@ -12,6 +12,7 @@ namespace SpaceInvaders {
 		void update(float deltaTime);
 		bool endOfScreen();
 		bool isAlive;
+		bool reachPlayer();
 	private:
 		sf::RenderWindow* screen;
 		sf::Texture texture;

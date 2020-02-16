@@ -7,10 +7,11 @@ namespace SpaceInvaders {
 	public:
 		Ship(sf::RenderWindow* w);
 		void update(float deltaTime);
-		sf::Sprite* getSprite();
 	private:
 		sf::RenderWindow* screen;
 		sf::Texture shipTexture;
 		sf::Sprite shipSprite;
+		void readInput(float deltaTime);
+		float speed = 50;
 	};
 }
