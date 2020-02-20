@@ -24,5 +24,10 @@ namespace SpaceInvaders {
 		void checkFinishCondition();
 		bool rightMove;
 		bool moveDown;
+		void readInput(float deltaTime);
+		float counterToShoot = 3;
+		const int timeToShoot = 3;
+		void updateBullets(float deltaTime);
+		std::vector<Bullet*> bullets;
 	};
 }

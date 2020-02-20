@@ -159,12 +159,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="SpaceInvadersSFML.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="DEFINITIONS.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />

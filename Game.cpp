@@ -9,6 +9,7 @@ namespace SpaceInvaders {
 		createEnemies();
 		rightMove = true;
 		moveDown = false;
+		window.setFramerateLimit(60);
 		this->run();
 	};
 
@@ -25,8 +26,12 @@ namespace SpaceInvaders {
 				if (event.type == sf::Event::Closed)
 					window.close();
 			}
+
 			window.clear();
+			counterToShoot += deltaTime;
+			readInput(deltaTime);
 			moveEnemies(deltaTime);
+			updateBullets(deltaTime);
 			checkFinishCondition();
 			ship->update(deltaTime);
 			window.display();
@@ -72,6 +77,31 @@ namespace SpaceInvaders {
 			{
 				//TODO Finish games
 			}
+		}
+	}
+
+	void Game::updateBullets(float deltaTime) {
+		for (unsigned short int i = 0; i < bullets.size(); i++)
+		{
+			bullets[i]->update(deltaTime);
+		}
+	}
+
+	void Game::readInput(float deltaTime) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		{
+			ship->moveLeft(deltaTime);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		{
+			ship->moveRight(deltaTime);
+		}
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+			&& counterToShoot >= timeToShoot)
+		{
+			counterToShoot = 0;
+			Bullet* bullet = new Bullet(&window, ship->getPosition());
+			bullets.push_back(bullet);
 		}
 	}
 }
