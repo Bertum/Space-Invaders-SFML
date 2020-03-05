@@ -6,6 +6,8 @@ namespace SpaceInvaders {
 	Game::Game(int width, int height, sf::String title) {
 		window.create(sf::VideoMode(width, height), title);
 		ship = new Ship(&window);
+		hud = new HUD(&window);
+		endgameScreen = new EndgameScreen(&window);
 		createEnemies();
 		rightMove = true;
 		moveDown = false;
@@ -28,12 +30,22 @@ namespace SpaceInvaders {
 			}
 
 			window.clear();
-			counterToShoot += deltaTime;
-			readInput(deltaTime);
-			moveEnemies(deltaTime);
-			updateBullets(deltaTime);
-			checkFinishCondition();
-			ship->update(deltaTime);
+			if (!gameFinished)
+			{
+				counterToShoot += deltaTime;
+				readInput(deltaTime);
+				moveEnemies(deltaTime);
+				updateBullets(deltaTime);
+				checkFinishCondition();
+				ship->update(deltaTime);
+				checkBulletsCollision();
+				hud->draw();
+				checkIfEnemiesAlive();
+			}
+			else
+			{
+				endgameScreen->draw(win);
+			}
 			window.display();
 		}
 	}
@@ -75,7 +87,8 @@ namespace SpaceInvaders {
 		{
 			if (enemies[i]->reachPlayer())
 			{
-				//TODO Finish games
+				gameFinished = true;
+				win = false;
 			}
 		}
 	}
@@ -88,11 +101,11 @@ namespace SpaceInvaders {
 	}
 
 	void Game::readInput(float deltaTime) {
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) && (ship->getPosition().x - ship->getSprite().getLocalBounds().width / 2) > 0)
 		{
 			ship->moveLeft(deltaTime);
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) && (ship->getPosition().x + ship->getSprite().getLocalBounds().width / 2) < window.getSize().x)
 		{
 			ship->moveRight(deltaTime);
 		}
@@ -102,6 +115,37 @@ namespace SpaceInvaders {
 			counterToShoot = 0;
 			Bullet* bullet = new Bullet(&window, ship->getPosition());
 			bullets.push_back(bullet);
+		}
+	}
+
+	void Game::checkBulletsCollision() {
+		for (unsigned short int i = 0; i < bullets.size(); i++)
+		{
+			for (unsigned short int k = 0; k < enemies.size(); k++)
+			{
+				if (bullets[i]->isActive && enemies[k]->isAlive &&
+					bullets[i]->getRectangleShape().getGlobalBounds().intersects(enemies[k]->getSprite().getGlobalBounds()))
+				{
+					hud->score++;
+					bullets[i]->isActive = false;
+					enemies[k]->isAlive = false;
+				}
+			}
+		}
+	}
+
+	void Game::checkIfEnemiesAlive() {
+		bool anyAlive = false;
+		for (unsigned short int i = 0; i < enemies.size(); i++)
+		{
+			if (enemies[i]->isAlive)
+			{
+				anyAlive = true;
+			}
+		}
+		if (!anyAlive) {
+			gameFinished = true;
+			win = true;
 		}
 	}
 }

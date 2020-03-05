@@ -7,7 +7,8 @@ namespace SpaceInvaders {
 	class Ship
 	{
 	public:
-		Ship(sf::RenderWindow* w);
+		Ship(sf::RenderWindow* window);
+		sf::Sprite& getSprite();
 		void update(float deltaTime);
 		void moveRight(float deltaTime);
 		void moveLeft(float deltaTime);

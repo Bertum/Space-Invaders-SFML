@@ -3,6 +3,8 @@
 #include "SFML\Graphics.hpp"
 #include "Ship.h"
 #include "Enemy.h"
+#include "EndgameScreen.h"
+#include "HUD.h"
 #include <iostream>
 #include <vector>
 
@@ -29,5 +31,11 @@ namespace SpaceInvaders {
 		const int timeToShoot = 3;
 		void updateBullets(float deltaTime);
 		std::vector<Bullet*> bullets;
+		void checkBulletsCollision();
+		HUD* hud;
+		bool win;
+		bool gameFinished;
+		EndgameScreen* endgameScreen;
+		void checkIfEnemiesAlive();
 	};
 }

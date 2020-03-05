@@ -5,8 +5,7 @@
 
 namespace SpaceInvaders {
 
-	Ship::Ship(sf::RenderWindow* w) {
-		screen = w;
+	Ship::Ship(sf::RenderWindow* window) : screen(window) {
 		if (!shipTexture.loadFromFile(SHIP_SPRITE_PATH)) {
 			std::cout << "Failed to load player image" << std::endl;
 		}
@@ -16,6 +15,11 @@ namespace SpaceInvaders {
 			shipSprite.setPosition(screen->getSize().x / 2, screen->getSize().y - 20);
 		}
 
+	}
+
+	sf::Sprite& Ship::getSprite()
+	{
+		return shipSprite;
 	}
 
 	void Ship::update(float deltaTime) {

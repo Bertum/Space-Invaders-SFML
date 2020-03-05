@@ -1,9 +1,7 @@
 ﻿#include "Enemy.h"
-#include<iostream>
 
 namespace SpaceInvaders {
-	Enemy::Enemy(sf::RenderWindow* window, int initialPosX, int initialPosY) {
-		screen = window;
+	Enemy::Enemy(sf::RenderWindow* window, int initialPosX, int initialPosY) : screen(window) {
 		isAlive = true;
 		loadSprite(initialPosX, initialPosY);
 	}
@@ -46,10 +44,14 @@ namespace SpaceInvaders {
 	}
 
 	bool Enemy::reachPlayer() {
-		if (sprite.getPosition().y < screen->getSize().y - 20 && isAlive)
+		if (sprite.getPosition().y > screen->getSize().y - 20 && isAlive)
 		{
 			return true;
 		}
 		return false;
+	}
+	sf::Sprite& Enemy::getSprite()
+	{
+		return sprite;
 	}
 }

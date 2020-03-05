@@ -162,6 +162,8 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="EndgameScreen.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="SpaceInvadersSFML.cpp" />
   </ItemGroup>
@@ -170,6 +172,8 @@
     <ClInclude Include="DEFINITIONS.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="HUD.h" />
+    <ClInclude Include="EndgameScreen.h" />
     <ClInclude Include="Ship.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
