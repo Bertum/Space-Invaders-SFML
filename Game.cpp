@@ -11,7 +11,6 @@ namespace SpaceInvaders {
 		createEnemies();
 		rightMove = true;
 		moveDown = false;
-		window.setFramerateLimit(60);
 		this->run();
 	};
 
@@ -89,6 +88,7 @@ namespace SpaceInvaders {
 			{
 				gameFinished = true;
 				win = false;
+				endgameScreen->saveScore(hud->score);
 			}
 		}
 	}
@@ -126,7 +126,7 @@ namespace SpaceInvaders {
 				if (bullets[i]->isActive && enemies[k]->isAlive &&
 					bullets[i]->getRectangleShape().getGlobalBounds().intersects(enemies[k]->getSprite().getGlobalBounds()))
 				{
-					hud->score++;
+					hud->score += 100;
 					bullets[i]->isActive = false;
 					enemies[k]->isAlive = false;
 				}
@@ -146,6 +146,7 @@ namespace SpaceInvaders {
 		if (!anyAlive) {
 			gameFinished = true;
 			win = true;
+			endgameScreen->saveScore(hud->score);
 		}
 	}
 }

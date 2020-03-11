@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include <SFML/Graphics.hpp>
 #include "DEFINITIONS.h"
+#include <iostream>
+#include <fstream>
 
 namespace SpaceInvaders {
 	class EndgameScreen
@@ -8,11 +10,16 @@ namespace SpaceInvaders {
 	public:
 		EndgameScreen(sf::RenderWindow* window);
 		void draw(bool win);
+		void saveScore(int score);
 	private:
-		sf::Sprite sprite;
-		sf::Texture texture;
-		sf::Text text;
+		sf::Text* scoreLabel;
+		sf::Text* scoreText;
+		sf::Text* highscoreLabel;
+		sf::Text* highscoreText;
 		sf::RenderWindow* screen;
 		sf::Font fontStyle;
+		void configText(sf::Text*, float posX, float posY, sf::String string, int size);
+		void loadHighScore();
+		int highScore = 0;
 	};
 }
