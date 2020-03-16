@@ -9,7 +9,7 @@ namespace SpaceInvaders {
 		Enemy(sf::RenderWindow* window, int initialPosX, int initialPosY);
 		void move(float deltaTime, bool right);
 		void moveDown();
-		void update(float deltaTime);
+		void update();
 		bool endOfScreen();
 		bool reachPlayer();
 		sf::Sprite& getSprite();

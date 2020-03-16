@@ -17,6 +17,7 @@ namespace SpaceInvaders {
 	private:
 		const float dt = 1.0f / 60.0f;
 		sf::Clock _clock;
+		sf::Clock timerMoveEnemies;
 		Ship* ship;
 		std::vector<Enemy*> enemies;
 		sf::RenderWindow window;
@@ -37,5 +38,6 @@ namespace SpaceInvaders {
 		bool gameFinished;
 		EndgameScreen* endgameScreen;
 		void checkIfEnemiesAlive();
+		float enemiesMoveTime = 300;
 	};
 }

@@ -6,7 +6,7 @@ namespace SpaceInvaders {
 		loadSprite(initialPosX, initialPosY);
 	}
 
-	void Enemy::update(float deltaTime) {
+	void Enemy::update() {
 		if (isAlive)
 		{
 			screen->draw(sprite);

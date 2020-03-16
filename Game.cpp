@@ -61,24 +61,34 @@ namespace SpaceInvaders {
 	}
 
 	void Game::moveEnemies(float deltaTime) {
-		for (unsigned short int i = 0; i < enemies.size(); i++)
+		if (timerMoveEnemies.getElapsedTime().asMilliseconds() > enemiesMoveTime&& moveDown)
 		{
-			enemies[i]->move(deltaTime, rightMove);
-			if (enemies[i]->endOfScreen() && !moveDown)
+			for (unsigned short int i = 0; i < enemies.size(); i++)
 			{
-				moveDown = true;
-				rightMove = !rightMove;
-			}
-
-		}
-		for (unsigned short int i = 0; i < enemies.size(); i++)
-		{
-			if (moveDown) {
 				enemies[i]->moveDown();
 			}
-			enemies[i]->update(deltaTime);
+			timerMoveEnemies.restart();
+			moveDown = false;
 		}
-		moveDown = false;
+		if (timerMoveEnemies.getElapsedTime().asMilliseconds() > enemiesMoveTime)
+		{
+			bool tempRightMove = rightMove;
+			for (unsigned short int i = 0; i < enemies.size(); i++)
+			{
+				enemies[i]->move(timerMoveEnemies.getElapsedTime().asSeconds(), rightMove);
+				if (enemies[i]->endOfScreen() && !moveDown)
+				{
+					moveDown = true;
+					tempRightMove = !tempRightMove;
+				}
+			}
+			rightMove = tempRightMove;
+			timerMoveEnemies.restart();
+		}
+		for (unsigned short int i = 0; i < enemies.size(); i++)
+		{
+			enemies[i]->update();
+		}
 	}
 
 	void Game::checkFinishCondition() {
