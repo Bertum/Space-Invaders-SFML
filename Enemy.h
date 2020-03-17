@@ -18,7 +18,10 @@ namespace SpaceInvaders {
 		sf::RenderWindow* screen;
 		sf::Texture texture;
 		sf::Sprite sprite;
-		float speed = 50;
+		float speed = 25;
 		void loadSprite(float positionX, float positionY);
+		void doAnimation();
+		int animationIndex = 0;
+		sf::IntRect rectSourceSprite;
 	};
 }

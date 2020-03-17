@@ -23,7 +23,7 @@ namespace SpaceInvaders {
 		highScoreLabelText.setOrigin(highScoreLabelText.getLocalBounds().width / 2, 0);
 		highScoreLabelText.setPosition(SCREEN_WIDTH / 2, 0);
 		highScoreText.setOrigin(highScoreText.getLocalBounds().width / 2, 0);
-		scoreText.setPosition(scoreLabelText.getLocalBounds().width / 2 + 20, 0);
+		scoreText.setPosition(scoreLabelText.getLocalBounds().width + 20, 0);
 		highScoreText.setPosition(highScoreLabelText.getPosition().x +
 			highScoreLabelText.getLocalBounds().width / 2 + 20, 0);
 	}

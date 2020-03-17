@@ -38,6 +38,6 @@ namespace SpaceInvaders {
 		bool gameFinished;
 		EndgameScreen* endgameScreen;
 		void checkIfEnemiesAlive();
-		float enemiesMoveTime = 300;
+		float enemiesMoveTime = 1000;
 	};
 }

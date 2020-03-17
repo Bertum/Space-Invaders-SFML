@@ -22,6 +22,7 @@ namespace SpaceInvaders {
 			else
 				xMove = -speed * deltaTime;
 			sprite.move(xMove, 0);
+			doAnimation();
 		}
 	}
 
@@ -34,6 +35,8 @@ namespace SpaceInvaders {
 		sprite.setTexture(texture);
 		sprite.setOrigin(texture.getSize().x / 2, texture.getSize().y / 2);
 		sprite.setPosition(positionX, positionY);
+		rectSourceSprite = sf::IntRect(0, 0, sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height);
+		sprite.setTextureRect(rectSourceSprite);
 	}
 
 	bool Enemy::endOfScreen() {
@@ -50,6 +53,17 @@ namespace SpaceInvaders {
 		}
 		return false;
 	}
+
+	void Enemy::doAnimation() {
+		if (animationIndex == 0)
+			animationIndex++;
+		else
+			animationIndex = 0;
+
+		rectSourceSprite.left = sprite.getGlobalBounds().width * animationIndex;
+		sprite.setTextureRect(rectSourceSprite);
+	}
+
 	sf::Sprite& Enemy::getSprite()
 	{
 		return sprite;
