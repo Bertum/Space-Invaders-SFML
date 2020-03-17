@@ -4,34 +4,44 @@ namespace SpaceInvaders {
 	HUD::HUD(sf::RenderWindow* window) : screen(window)
 	{
 		fontStyle.loadFromFile(FONT_STYLE);
-		highScoreLabelText.setFont(fontStyle);
-		highScoreText.setFont(fontStyle);
-		scoreLabelText.setFont(fontStyle);
-		scoreText.setFont(fontStyle);
-		highScoreLabelText.setString("Highscore:");
-		scoreLabelText.setString("Score:");
-		scoreText.setString("0");
-		highScoreText.setString("0");
-		highScoreText.setCharacterSize(fontSize);
-		highScoreLabelText.setCharacterSize(fontSize);
-		scoreText.setCharacterSize(fontSize);
-		scoreLabelText.setCharacterSize(fontSize);
-		highScoreLabelText.setFillColor(sf::Color::White);
-		highScoreText.setFillColor(sf::Color::White);
-		scoreLabelText.setFillColor(sf::Color::White);
-		scoreText.setFillColor(sf::Color::White);
-		highScoreLabelText.setOrigin(highScoreLabelText.getLocalBounds().width / 2, 0);
-		highScoreLabelText.setPosition(SCREEN_WIDTH / 2, 0);
-		highScoreText.setOrigin(highScoreText.getLocalBounds().width / 2, 0);
-		scoreText.setPosition(scoreLabelText.getLocalBounds().width + 20, 0);
-		highScoreText.setPosition(highScoreLabelText.getPosition().x +
-			highScoreLabelText.getLocalBounds().width / 2 + 20, 0);
+		highScoreLabelText = new sf::Text();
+		highScoreText = new sf::Text();
+		scoreLabelText = new sf::Text();
+		scoreText = new sf::Text();
+
+		configText(scoreLabelText, "Score:", 15, 10);
+		configText(scoreText, "0", scoreLabelText->getLocalBounds().width + 20, 10);
+		configText(highScoreText, "0", SCREEN_WIDTH - 50, 10);
+		configText(highScoreLabelText, "Highscore:", highScoreText->getPosition().x - 100, 10);
+
+		loadHigherScore();
 	}
 
 	void HUD::draw() {
-		screen->draw(highScoreLabelText);
-		screen->draw(highScoreText);
-		screen->draw(scoreLabelText);
-		screen->draw(scoreText);
+		screen->draw(*scoreLabelText);
+		screen->draw(*scoreText);
+		screen->draw(*highScoreLabelText);
+		screen->draw(*highScoreText);
+	}
+
+	void HUD::configText(sf::Text* text, sf::String string, float posX, float posY) {
+		text->setFont(fontStyle);
+		text->setString(string);
+		text->setFillColor(sf::Color::White);
+		text->setCharacterSize(fontSize);
+		text->setPosition(posX, posY);
+	}
+
+	void HUD::loadHigherScore() {
+		std::ifstream file;
+		file.open("highScore.txt");
+		if (file.good())
+		{
+			std::string line;
+			std::getline(file, line);
+			highScore = std::stoi(line);
+			highScoreText->setString(std::to_string(highScore));
+		}
+		file.close();
 	}
 }
