@@ -61,35 +61,37 @@ namespace SpaceInvaders {
 	}
 
 	void Game::moveEnemies(float deltaTime) {
-		if (timerMoveEnemies.getElapsedTime().asMilliseconds() > enemiesMoveTime&& moveDown)
-		{
-			for (unsigned short int i = 0; i < enemies.size(); i++)
-			{
-				enemies[i]->moveDown();
-			}
-			timerMoveEnemies.restart();
-			moveDown = false;
-		}
-		if (timerMoveEnemies.getElapsedTime().asMilliseconds() > enemiesMoveTime)
-		{
-			bool tempRightMove = rightMove;
-			for (unsigned short int i = 0; i < enemies.size(); i++)
-			{
-				enemies[i]->move(timerMoveEnemies.getElapsedTime().asSeconds(), rightMove);
-				if (enemies[i]->endOfScreen() && !moveDown)
-				{
-					moveDown = true;
-					tempRightMove = !tempRightMove;
-				}
-			}
-			rightMove = tempRightMove;
-			timerMoveEnemies.restart();
-		}
+
+		bool tempMoveDown = moveDown;
+		bool tempRightMove = rightMove;
+		bool moveEnemies = timerMoveEnemies.getElapsedTime().asMilliseconds() > enemiesMoveTime;
 		for (unsigned short int i = 0; i < enemies.size(); i++)
 		{
+			if (moveEnemies)
+			{
+				if (tempMoveDown) {
+					moveDown = false;
+					enemies[i]->moveDown();
+				}
+				else
+				{
+					enemies[i]->move(timerMoveEnemies.getElapsedTime().asSeconds(), rightMove);
+					if (enemies[i]->endOfScreen())
+					{
+						moveDown = true;
+						tempRightMove = !tempRightMove;
+					}
+				}
+			}
 			enemies[i]->update();
 		}
+		rightMove = tempRightMove;
+		if (moveEnemies)
+		{
+			timerMoveEnemies.restart();
+		}
 	}
+
 
 	void Game::checkFinishCondition() {
 		for (unsigned short int i = 0; i < enemies.size(); i++)
