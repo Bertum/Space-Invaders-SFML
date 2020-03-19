@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "SFML/Graphics.hpp"
+#include "DEFINITIONS.h"
 
 namespace SpaceInvaders {
 	class Bullet
@@ -7,10 +8,11 @@ namespace SpaceInvaders {
 	public:
 		Bullet(sf::RenderWindow* window, sf::Vector2f position);
 		void update(float deltaTime);
-		sf::RectangleShape& getRectangleShape();
+		sf::Sprite& getRectangleShape();
 		bool isActive;
 	private:
-		sf::RectangleShape bulletRect;
+		sf::Texture texture;
+		sf::Sprite sprite;
 		sf::RenderWindow* screen;
 		void move(float deltaTime);
 		float speed = 30;

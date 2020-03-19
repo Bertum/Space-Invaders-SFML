@@ -3,9 +3,10 @@
 
 namespace SpaceInvaders {
 	Bullet::Bullet(sf::RenderWindow* window, sf::Vector2f position) : screen(window) {
-		bulletRect.setSize(sf::Vector2f(10, 10));
-		bulletRect.setPosition(position);
-		bulletRect.setOrigin(bulletRect.getSize().x / 2, bulletRect.getSize().y / 2);
+		texture.loadFromFile(BULLET_SPRITE_PATH);
+		sprite.setTexture(texture);
+		sprite.setPosition(position);
+		sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
 		isActive = true;
 	}
 
@@ -13,25 +14,25 @@ namespace SpaceInvaders {
 		if (isActive)
 		{
 			move(deltaTime);
-			screen->draw(bulletRect);
+			screen->draw(sprite);
 			checkOutOfScreen();
 		}
 	}
 
-	sf::RectangleShape& Bullet::getRectangleShape()
+	sf::Sprite& Bullet::getRectangleShape()
 	{
-		return bulletRect;
+		return sprite;
 	}
 
 	void Bullet::checkOutOfScreen()
 	{
-		if (bulletRect.getPosition().y + (bulletRect.getSize().y / 2) < 0)
+		if (sprite.getPosition().y + (sprite.getLocalBounds().height / 2) < 0)
 		{
 			isActive = false;
 		}
 	}
 
 	void Bullet::move(float deltaTime) {
-		bulletRect.move(0, -speed * deltaTime);
+		sprite.move(0, -speed * deltaTime);
 	}
 }

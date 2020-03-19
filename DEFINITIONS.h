@@ -7,8 +7,8 @@
 #define ENEMY_SPRITE_A_PATH "Resources/Sprites/inv_a.bmp"
 #define ENEMY_SPRITE_B_PATH "Resources/Sprites/inv_b.bmp"
 #define ENEMY_SPRITE_C_PATH "Resources/Sprites/inv_c.bmp"
-#define LOSE_GAME_SPRITE_PATH "Resources/Sprites/LoseScreen.png"
-#define WIN_GAME_SPRITE_PATH "Resources/Sprites/WinScreen.png"
+#define BULLET_SPRITE_PATH "Resources/Sprites/shot.bmp"
+#define EXPLOSION_SPRITE_PATH "Resources/Sprites/explosion.bmp"
 
 #define EXPLOSION_SOUND_FILEPATH "Resources/Audios/explosion.wav"
 #define SHOOT_SOUND_FILEPATH "Resources/Audios/shoot.wav"

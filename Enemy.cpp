@@ -4,14 +4,20 @@ namespace SpaceInvaders {
 	Enemy::Enemy(sf::RenderWindow* window, int initialPosX, int initialPosY, int row) : screen(window) {
 		isAlive = true;
 		loadSprite(initialPosX, initialPosY, row);
+		explosionTexture.loadFromFile(EXPLOSION_SPRITE_PATH);
+		explosionSprite.setTexture(explosionTexture);
+		explosionSprite.setOrigin(explosionSprite.getLocalBounds().width / 2, explosionSprite.getLocalBounds().height / 2);
 	}
 
 	void Enemy::update() {
 		if (isAlive)
-		{
 			screen->draw(sprite);
+		else if (timeExplosionSprite < 1) {
+			explosionSprite.setPosition(sprite.getPosition());
+			screen->draw(explosionSprite);
 		}
 	}
+
 
 	void Enemy::move(float deltaTime, bool right) {
 		if (isAlive)
@@ -24,6 +30,8 @@ namespace SpaceInvaders {
 			sprite.move(xMove, 0);
 			doAnimation();
 		}
+		else if (timeExplosionSprite < 1)
+			timeExplosionSprite += deltaTime;
 	}
 
 	void Enemy::moveDown() {

@@ -18,10 +18,13 @@ namespace SpaceInvaders {
 		sf::RenderWindow* screen;
 		sf::Texture texture;
 		sf::Sprite sprite;
+		sf::Texture explosionTexture;
+		sf::Sprite explosionSprite;
 		float speed = 25;
 		void loadSprite(float positionX, float positionY, int row);
 		void doAnimation();
 		int animationIndex = 0;
 		sf::IntRect rectSourceSprite;
+		float timeExplosionSprite;
 	};
 }
