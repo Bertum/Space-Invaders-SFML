@@ -6,7 +6,7 @@ namespace SpaceInvaders {
 	class Enemy
 	{
 	public:
-		Enemy(sf::RenderWindow* window, int initialPosX, int initialPosY);
+		Enemy(sf::RenderWindow* window, int initialPosX, int initialPosY, int row);
 		void move(float deltaTime, bool right);
 		void moveDown();
 		void update();
@@ -19,7 +19,7 @@ namespace SpaceInvaders {
 		sf::Texture texture;
 		sf::Sprite sprite;
 		float speed = 25;
-		void loadSprite(float positionX, float positionY);
+		void loadSprite(float positionX, float positionY, int row);
 		void doAnimation();
 		int animationIndex = 0;
 		sf::IntRect rectSourceSprite;

@@ -7,6 +7,7 @@
 #include "HUD.h"
 #include <iostream>
 #include <vector>
+#include "SFML/Audio.hpp"
 
 namespace SpaceInvaders {
 	class Game
@@ -39,5 +40,9 @@ namespace SpaceInvaders {
 		EndgameScreen* endgameScreen;
 		void checkIfEnemiesAlive();
 		float enemiesMoveTime = 1000;
+		sf::SoundBuffer explosionSoundBuffer;
+		sf::SoundBuffer shootSoundBuffer;
+		sf::Sound explosionSound;
+		sf::Sound shootSound;
 	};
 }

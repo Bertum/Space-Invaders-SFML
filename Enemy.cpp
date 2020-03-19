@@ -1,9 +1,9 @@
 ﻿#include "Enemy.h"
 
 namespace SpaceInvaders {
-	Enemy::Enemy(sf::RenderWindow* window, int initialPosX, int initialPosY) : screen(window) {
+	Enemy::Enemy(sf::RenderWindow* window, int initialPosX, int initialPosY, int row) : screen(window) {
 		isAlive = true;
-		loadSprite(initialPosX, initialPosY);
+		loadSprite(initialPosX, initialPosY, row);
 	}
 
 	void Enemy::update() {
@@ -30,8 +30,23 @@ namespace SpaceInvaders {
 		sprite.move(0, speed);
 	}
 
-	void Enemy::loadSprite(float positionX, float positionY) {
-		texture.loadFromFile(ENEMY_SPRITE_PATH);
+	void Enemy::loadSprite(float positionX, float positionY, int row) {
+		switch (row)
+		{
+		case 0:
+			texture.loadFromFile(ENEMY_SPRITE_A_PATH);
+			break;
+		case 1:
+		case 2:
+			texture.loadFromFile(ENEMY_SPRITE_B_PATH);
+			break;
+		case 3:
+		case 4:
+			texture.loadFromFile(ENEMY_SPRITE_C_PATH);
+			break;
+		default:
+			break;
+		}
 		sprite.setTexture(texture);
 		sprite.setOrigin(texture.getSize().x / 2, texture.getSize().y / 2);
 		sprite.setPosition(positionX, positionY);

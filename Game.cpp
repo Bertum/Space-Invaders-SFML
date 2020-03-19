@@ -11,6 +11,10 @@ namespace SpaceInvaders {
 		createEnemies();
 		rightMove = true;
 		moveDown = false;
+		explosionSoundBuffer.loadFromFile(EXPLOSION_SOUND_FILEPATH);
+		explosionSound.setBuffer(explosionSoundBuffer);
+		shootSoundBuffer.loadFromFile(SHOOT_SOUND_FILEPATH);
+		shootSound.setBuffer(shootSoundBuffer);
 		this->run();
 	};
 
@@ -50,11 +54,11 @@ namespace SpaceInvaders {
 	}
 
 	void Game::createEnemies() {
-		for (unsigned short int i = 0; i < 8; i++)
+		for (unsigned short int i = 0; i < 10; i++)
 		{
-			for (unsigned short int k = 0; k < 3; k++)
+			for (unsigned short int k = 0; k < 5; k++)
 			{
-				Enemy* enemy = new Enemy(&window, 50 * (i + 1), 50 * (k + 1));
+				Enemy* enemy = new Enemy(&window, 50 * (i + 1), 50 * (k + 1), k);
 				enemies.push_back(enemy);
 			}
 		}
@@ -127,6 +131,7 @@ namespace SpaceInvaders {
 			counterToShoot = 0;
 			Bullet* bullet = new Bullet(&window, ship->getPosition());
 			bullets.push_back(bullet);
+			shootSound.play();
 		}
 	}
 
@@ -139,6 +144,7 @@ namespace SpaceInvaders {
 					bullets[i]->getRectangleShape().getGlobalBounds().intersects(enemies[k]->getSprite().getGlobalBounds()))
 				{
 					hud->score += 100;
+					explosionSound.play();
 					bullets[i]->isActive = false;
 					enemies[k]->isAlive = false;
 				}
