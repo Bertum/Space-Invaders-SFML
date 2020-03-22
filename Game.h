@@ -29,8 +29,8 @@ namespace SpaceInvaders {
 		bool rightMove;
 		bool moveDown;
 		void readInput(float deltaTime);
-		float counterToShoot = 3;
-		const int timeToShoot = 3;
+		float counterToShoot = 1.5;
+		const float timeToShoot = 1.5;
 		void updateBullets(float deltaTime);
 		std::vector<Bullet*> bullets;
 		void checkBulletsCollision();

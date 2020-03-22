@@ -35,7 +35,9 @@ namespace SpaceInvaders {
 	}
 
 	void Enemy::moveDown() {
-		sprite.move(0, speed);
+		if (isAlive) {
+			sprite.move(0, speed);
+		}
 	}
 
 	void Enemy::loadSprite(float positionX, float positionY, int row) {

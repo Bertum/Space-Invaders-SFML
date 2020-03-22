@@ -20,7 +20,7 @@ namespace SpaceInvaders {
 		sf::Sprite sprite;
 		sf::Texture explosionTexture;
 		sf::Sprite explosionSprite;
-		float speed = 25;
+		float speed = 20;
 		void loadSprite(float positionX, float positionY, int row);
 		void doAnimation();
 		int animationIndex = 0;
